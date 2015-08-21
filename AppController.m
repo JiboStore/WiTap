@@ -65,7 +65,12 @@
 // To help network administrators indentify your service, you should choose a 
 // service name that's reasonably human readable.
 
+#define PRINT_LOG 1
+
 static NSString * kWiTapBonjourType = @"_witap2._tcp.";
+
+static uint iMessageExpander = 4096;    // 1024; max: 4096 will have recepient receive in 4 chunks of 928 + 1 chunk of 384
+static uint iSendRepeater = 1;          // 2; max
 
 @interface AppController () <
     UIApplicationDelegate, 
@@ -309,11 +314,22 @@ static NSString * kWiTapBonjourType = @"_witap2._tcp.";
         
         case NSStreamEventHasBytesAvailable: {
             uint8_t     b;
-            NSInteger   bytesRead;
+            NSInteger   bytesRead = 0;
+            
+            uint8_t *barray = malloc(sizeof(uint8_t) * iMessageExpander);
 
             assert(stream == self.inputStream);
 
-            bytesRead = [self.inputStream read:&b maxLength:sizeof(uint8_t)];
+            uint iMessageSize = sizeof(uint8_t) * iMessageExpander;
+            for ( uint i = 0; i < iSendRepeater; i++ ) {
+                bytesRead = [self.inputStream read:barray maxLength:iMessageSize];
+                b = barray[0];
+#if PRINT_LOG
+                NSLog(@"bytes read: %d", (int)bytesRead);
+#endif
+            }
+            
+            free(barray);
             if (bytesRead <= 0) {
                 // Do nothing; we'll handle EOF and error in the 
                 // NSStreamEventEndEncountered and NSStreamEventErrorOccurred case, 
@@ -382,13 +398,19 @@ static NSString * kWiTapBonjourType = @"_witap2._tcp.";
     // OK to ignore it; if the stream stops transferring data the user is going to have 
     // to tap a lot before we fill up our stream buffer (-:
 
-    if ( [self.outputStream hasSpaceAvailable] ) {
+    for ( uint i = 0; i < iSendRepeater; i++ ) {
+//    if ( [self.outputStream hasSpaceAvailable] ) {
         NSInteger   bytesWritten;
-        
-        bytesWritten = [self.outputStream write:&message maxLength:sizeof(message)];
-        if (bytesWritten != sizeof(message)) {
+    
+        uint iMessageSize = sizeof(message)*iMessageExpander;
+        bytesWritten = [self.outputStream write:&message maxLength:sizeof(message) * iMessageExpander];
+        if (bytesWritten != iMessageSize) {
             [self setupForNewGame];
         }
+#if PRINT_LOG
+        NSLog(@"message sent: %d", iMessageSize);
+#endif
+//    }
     }
 }
 
