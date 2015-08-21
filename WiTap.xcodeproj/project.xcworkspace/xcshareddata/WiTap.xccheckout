@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>51BE0676-C7D6-465F-84D7-EAB75DC813E7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>WiTap</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7768CEBF61163FEE8692EFF44CF2DE95D479B2A0</key>
+		<string>https://github.com/JiboStore/WiTap.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>WiTap.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7768CEBF61163FEE8692EFF44CF2DE95D479B2A0</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/JiboStore/WiTap.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7768CEBF61163FEE8692EFF44CF2DE95D479B2A0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7768CEBF61163FEE8692EFF44CF2DE95D479B2A0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WiTap</string>
+		</dict>
+	</array>
+</dict>
+</plist>
